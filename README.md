@@ -1,4 +1,4 @@
-# quorum-local-drizzlebox
+# drizzlebox-provider-performance
 
 A repository using the [quorum local raft network](https://github.com/51nodes/quorum-local-raft-network) and implementing the [drizzle trufflebox](https://www.trufflesuite.com/boxes/drizzle).
 
@@ -18,7 +18,7 @@ The `performance/readWritePerformance.js` script aims to measure the execution t
 
 You will need to have the quorum local raft network up and running. 
 
-In the folder `quorum-local-drozzlebox` run
+In the folder `drizzlebox-provider-performance` run
 - `npm install`
 
 Following this you need to deploy the contracts to the quorum network, note the SimpleStorage contract address and the used account address, since this is the default account we will need later on. 
