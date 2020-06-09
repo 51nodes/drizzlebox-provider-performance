@@ -11,7 +11,7 @@ Some testing scripts are located under `performance`. These script can be used t
 
 The `performance/eventPerformanceTest.js` script aims to measure the time between a transaction (storageSet) and the Event callback. 
 
-The `performance/readWritePerformance.js` script aims to measure the execution time of either writing to a storage 30 times or reading from a storage for 30 times. 
+The `performance/readWritePerformance.js` script aims to measure the execution time of either writing or reading from a storage for a single or multiple times. 
 
 
 ## Running the test 
@@ -21,14 +21,43 @@ You will need to have the quorum local raft network up and running.
 In the folder `drizzlebox-provider-performance` run
 - `npm install`
 
-Following this you need to deploy the contracts to the quorum network, note the SimpleStorage contract address and the used account address, since this is the default account we will need later on. 
+Following this you need to deploy the contracts to the quorum network, note the SimpleStorage contract address.
 - `truffle migrate --network quorumlocal`
 
-Now edit the `defaultAccount` and `storageContractAddress` constants in the testing script you want to execute.
+Now edit the `storageContractAddress` constant in the testing script you want to execute.
+
+### RPC
+
+For testing the RPC connection use 
+
+```
+const web3Provider = new Web3('http://127.0.0.1:22000');
+
+const storageContract = new web3Provider.eth.Contract(
+        abi, storageContractAddress);
+```
+
+### Websocket
+
+For testing the Websocket connection use 
+
+```
+const web3Provider = 'ws://127.0.0.1:23000'
+
+const provider = new Web3.providers.WebsocketProvider(
+    web3Provider,
+    { clientConfig: { keepalive: true, keepaliveInterval: 5000 } });
+const web3 = new Web3(provider, null, { transactionConfirmationBlocks: 1 });
+
+const storageContract = new web3.eth.Contract(
+        abi, storageContractAddress);
+```
 
 By this time you should be able to execute the tests using
-- `node performance/readWritePerformanceTest.js write`
-- `node performance/readWritePerformanceTest.js read`
+- `node performance/readWritePerformanceTest.js writeSingle`
+- `node performance/readWritePerformanceTest.js writeMultiple`
+- `node performance/readWritePerformanceTest.js readSingle`
+- `node performance/readWritePerformanceTest.js readMultiple`   
 - `node performance/eventPerformanceTest.js `
 
 

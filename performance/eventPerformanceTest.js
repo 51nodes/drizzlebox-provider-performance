@@ -1,13 +1,27 @@
 const Web3 = require('web3');
 const abi = require('./StorageABI');
 
-const web3Provider = new Web3('ws://127.0.0.1:23000');
-
 const defaultAccount = '0xed9d02e382b34818e88B88a309c7fe71E65f419d';
-const storageContractAddress = '0x9d13C6D3aFE1721BEef56B55D303B09E021E27ab';
+const storageContractAddress = '0x986328359e6CE90a98b89b4b6F19Aa6Ea527F1b7';
 
-const storageContract = new web3Provider.eth.Contract(
-    abi, storageContractAddress);
+// RPC
+
+// const web3Provider = new Web3('http://127.0.0.1:22000');
+// const storageContract = new web3Provider.eth.Contract(
+//    abi, storageContractAddress);
+
+
+// Websocket
+
+const web3Provider = 'ws://127.0.0.1:23000'
+const provider = new Web3.providers.WebsocketProvider(
+    web3Provider,
+    { clientConfig: { keepalive: true, keepaliveInterval: 5000 } });
+const web3 = new Web3(provider, null, { transactionConfirmationBlocks: 1 });
+
+const storageContract = new web3.eth.Contract(
+        abi, storageContractAddress);
+
 
 const transactionObject = {
     from: defaultAccount,
@@ -21,7 +35,7 @@ var eventEmitted;
 //Calculating difference between setting the Storage and firing the SetStorage Event
 async function transactionToEventPerformance() {
 
-       await storageContract.once('StorageSet', {
+    storageContract.once('StorageSet', {
             filter: {},
         }, function (error, event) {
 
