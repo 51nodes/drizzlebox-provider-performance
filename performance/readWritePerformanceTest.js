@@ -4,24 +4,25 @@ const abi = require('./StorageABI');
 const defaultAccount = '0xed9d02e382b34818e88B88a309c7fe71E65f419d';
 const storageContractAddress = '0x986328359e6CE90a98b89b4b6F19Aa6Ea527F1b7';
 
-// RPC
+const providerType = process.argv[2];
 
-// const web3Provider = new Web3('http://127.0.0.1:22000');
-// const storageContract = new web3Provider.eth.Contract(
-//    abi, storageContractAddress);
+var web3;
+if (providerType === 'rpc') {
+    web3 = new Web3('http://127.0.0.1:22000');
+} else if (providerType === 'ws') {
+    const provider = new Web3.providers.WebsocketProvider(
+        'ws://127.0.0.1:23000',
+        { clientConfig: { keepalive: true, keepaliveInterval: 5000 } });
+    web3 = new Web3(provider, null, { transactionConfirmationBlocks: 1 });
+} else {
+    console.log('Missing argument: providerType (rpc | ws)');
+    process.exit(1);
+}
 
-
-// Websocket
-
-const web3Provider = 'ws://127.0.0.1:23000'
-const provider = new Web3.providers.WebsocketProvider(
-    web3Provider,
-    { clientConfig: { keepalive: true, keepaliveInterval: 5000 } });
-const web3 = new Web3(provider, null, { transactionConfirmationBlocks: 1 });
+console.log('Testing on providerType: ', providerType)
 
 const storageContract = new web3.eth.Contract(
-        abi, storageContractAddress);
-        
+    abi, storageContractAddress);
 
 const transactionObject = {
     from: defaultAccount,
@@ -31,14 +32,9 @@ const transactionObject = {
 
 }
 
+async function setStorage() {
 
-async function setStorage(){
-
-        await storageContract.methods.set(1).send(transactionObject)
-        .on('receipt', (receipt) => {
-            console.log(receipt)
-
-        });
+    return promisify(cb => storageContract.methods.set(1).send(transactionObject, cb));
 
 }
 
@@ -49,9 +45,10 @@ async function multipleWritesPerformance() {
 
     //Setting Storage for 30 times
     for (let index = 0; index <= 30; index++) {
-        await setStorage();
-    }
 
+        const txHash = await setStorage();
+
+    }
 
     var end = new Date() - start;
     console.log("Writing performance test execution time: %dms", end)
@@ -63,7 +60,7 @@ async function singleWritePerformance() {
 
     var start = new Date()
 
-        await setStorage();
+    const txHash = await setStorage();
 
     var end = new Date() - start;
     console.log("Writing performance test execution time: %dms", end)
@@ -77,7 +74,7 @@ async function multipleReadsPerformance() {
     //getting storage at index position
     for (let index = 0; index <= 30; index++) {
 
-        await web3Provider.eth.getStorageAt(storageContractAddress, index, function (error, result) { });
+        await web3.eth.getStorageAt(storageContractAddress, index);
 
     }
 
@@ -91,14 +88,24 @@ async function singleReadPerformance() {
     var start = new Date()
 
     //getting storage at position 0
-    await web3Provider.eth.getStorageAt(storageContractAddress, 0, function (error, result) { });
+    await web3.eth.getStorageAt(storageContractAddress, 0);
 
     var end = new Date() - start;
     console.log("Reading performance test execution time: %dms", end);
 }
 
+const promisify = (inner) =>
+    new Promise((resolve, reject) =>
+        inner((err, res) => {
+            if (err) { reject(err) }
+
+            resolve(res);
+        })
+    );
+
+
 async function runScript() {
-    var message = process.argv[2];
+    var message = process.argv[3];
     if (message === 'readMultiple') {
         await multipleReadsPerformance();
     } else if (message === 'readSingle') {
@@ -110,6 +117,7 @@ async function runScript() {
     else if (message === 'writeSingle') {
         await singleWritePerformance();
     }
+    process.exit();
 }
 
 runScript();
