@@ -890,12 +890,12 @@
     "10": {
       "events": {},
       "links": {},
-      "address": "0x9993d6201c63a5B67AcB4531c76644172D1a1e44",
-      "transactionHash": "0x5d7411c8e75ca0c98617e8f93d9eeb77a6926c1c6e2be6ad2b9ed83213e17191"
+      "address": "0x341ed42CDfB13B897a198cD1C87ddf070e25E6a1",
+      "transactionHash": "0xf5f990bc2f95f4ba6bebd24d27357e6a45bd5236437b6e1fa5691ce5fa9f07f8"
     }
   },
   "schemaVersion": "3.0.23",
-  "updatedAt": "2020-05-26T16:01:50.159Z",
+  "updatedAt": "2020-06-16T10:01:01.779Z",
   "networkType": "quorum",
   "devdoc": {
     "methods": {}

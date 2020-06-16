@@ -628,12 +628,12 @@
         }
       },
       "links": {},
-      "address": "0x14762Ab9aa10Ff45Eea605e380BdF18AbCf6074d",
-      "transactionHash": "0x2d9638fd187a2488a8bedb48e9b28171b8f5cf224c5ed6a28492b06202505b0a"
+      "address": "0x624d400315312c6280F6dB7683ACf2128EbB9d46",
+      "transactionHash": "0xe1a021d42db8e6edd4b90e21fa25b7dc60cb12e585a73cd92e5bcf5b96ce1118"
     }
   },
   "schemaVersion": "3.0.23",
-  "updatedAt": "2020-05-26T16:01:50.151Z",
+  "updatedAt": "2020-06-16T10:01:01.773Z",
   "networkType": "quorum",
   "devdoc": {
     "methods": {}

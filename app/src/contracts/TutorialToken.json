@@ -1127,12 +1127,12 @@
         }
       },
       "links": {},
-      "address": "0xc30F409BCd910218175a6560cC1Fdb1f2ab8051E",
-      "transactionHash": "0x8bd02c8cd1b7b8cd7e52a5165e8a568f44c30792f28c97fe23c68d63c6b8b60c"
+      "address": "0x3b0F26B0A365E7028BBDa35e5438c7763C0D8a99",
+      "transactionHash": "0x0e0d818406f93ecaffc969c572efff037166d51e57d0e7ca21a0715742d147fa"
     }
   },
   "schemaVersion": "3.0.23",
-  "updatedAt": "2020-05-26T16:01:50.153Z",
+  "updatedAt": "2020-06-16T10:01:01.775Z",
   "networkType": "quorum",
   "devdoc": {
     "methods": {

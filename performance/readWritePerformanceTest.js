@@ -2,7 +2,7 @@ const Web3 = require('web3');
 const abi = require('./StorageABI');
 
 const defaultAccount = '0xed9d02e382b34818e88B88a309c7fe71E65f419d';
-const storageContractAddress = '0x986328359e6CE90a98b89b4b6F19Aa6Ea527F1b7';
+const storageContractAddress = '0x624d400315312c6280F6dB7683ACf2128EbB9d46';
 
 const providerType = process.argv[2];
 
