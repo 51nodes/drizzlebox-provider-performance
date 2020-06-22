@@ -1,5 +1,6 @@
 const Web3 = require('web3');
-const abi = require('./StorageABI');
+const fs = require('fs');
+const contract = JSON.parse(fs.readFileSync('../app/src/contracts/SimpleStorage.json', 'utf8'));
 
 const defaultAccount = '0xed9d02e382b34818e88B88a309c7fe71E65f419d';
 const storageContractAddress = '0x624d400315312c6280F6dB7683ACf2128EbB9d46';
@@ -22,7 +23,7 @@ if (providerType === 'rpc') {
 console.log('Testing on providerType: ', providerType)
 
 const storageContract = new web3.eth.Contract(
-    abi, storageContractAddress);
+    contract.abi, storageContractAddress);
 
 const transactionObject = {
     from: defaultAccount,
