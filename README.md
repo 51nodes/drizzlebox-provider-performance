@@ -4,6 +4,10 @@ A repository using the [quorum local raft network](https://github.com/51nodes/qu
 
 This repository is used for testing purposes. 
 
+## Prerequisites
+
+- [Node.js](https://nodejs.org/en/)
+
 
 ## Performance testing WebsocketProvider vs. HttpProvider
 
@@ -20,11 +24,10 @@ You will need to have the [quorum local raft network](https://github.com/51nodes
 
 In the folder `drizzlebox-provider-performance` run
 - `npm install`
-- `npm install -g truffle`
 
 Following this you need to deploy the contracts to the quorum network, note the SimpleStorage contract address. If you deploy the contracts on a `fresh` network you will have the same contract adress at all times. If you choose to deploy the contracts on the same network again please edit the `storageContractAddress` in the /performance scripts you choose to run. 
 
-- `truffle migrate --reset --network quorumlocal`
+- `npm run deploy-contract-quorumlocal`
 
 To start the UI run following commands in app/src/
 
