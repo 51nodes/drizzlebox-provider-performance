@@ -23,7 +23,7 @@
   "homepage": "https://github.com/truffle-box/drizzle-box#readme",
   "dependencies": {
     "@openzeppelin/contracts": "^2.4.0",
-    "truffle": "^5.1.31",
+    "truffle": "^5.3.3",
     "web3": "^2.0.0-alpha.1"
   }
 }
